@@ -21,11 +21,16 @@ export default class HomePage extends Component {
             return <CreateRoomPage {...{...props, history }} />;
         }
 
+        const RoomJoinWrapper = (props) => {
+            const history = useNavigate();
+            return <RoomJoinPage {...{...props, history }} />;
+        }
+
         return (
             <Router>
                 <Routes>
                     <Route exact path="/" element={<div>This is the Home Page</div>} />
-                    <Route path="/join" element={<RoomJoinPage />} />
+                    <Route path="/join" element={<RoomJoinWrapper />} />
                     <Route path="/create-room" element={<CreateRoomWrapper />} />
                     <Route path="/room/:roomCode" element={<RoomWrapper />} />
                 </Routes>

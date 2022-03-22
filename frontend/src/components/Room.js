@@ -14,7 +14,7 @@ export default class Room extends Component {
     }
 
     getRoomDetails() {
-        fetch('/api/get_room' + '?code=' + this.roomCode)
+        fetch('/api/get-room' + '?code=' + this.roomCode)
         .then((response) => response.json())
         .then((data) => {
             this.setState({
