@@ -12,6 +12,7 @@ export default class HomePage extends Component {
         this.state = {
             roomCode: null
         };
+        this.clearRoomCode = this.clearRoomCode.bind(this);
     }
 
     async componentDidMount() {
@@ -24,11 +25,18 @@ export default class HomePage extends Component {
         });
     }
 
+    clearRoomCode() {
+        this.setState({
+            roomCode: null,
+        })
+    }
+
     render() {
 
         const RoomWrapper = (props) => {
             const params = useParams();
-            return <Room {...{...props, match: {params}} } />;
+            const history = useNavigate();
+            return <Room {...{...props, history, match: {params}} } leaveRoomCallBack={this.clearRoomCode} />;
         }
 
         const CreateRoomWrapper = (props) => {
