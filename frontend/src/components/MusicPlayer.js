@@ -8,8 +8,16 @@ import PauseIcon from "@material-ui/icons/Pause"
 export default class MusicPlayer extends Component {
     constructor(props) {
         super(props);
-        this.pauseSong = this.pauseSong.bind(this);
-        this.playSong = this.playSong.bind(this);
+    }
+
+    skipSong() {
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        fetch('/spotify/skip', requestOptions);
     }
 
     pauseSong() {
@@ -47,8 +55,8 @@ export default class MusicPlayer extends Component {
                         <IconButton onClick={() => this.props.is_playing ? this.pauseSong() : this.playSong()}>
                             {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
                         </IconButton>
-                        <IconButton>
-                            <SkipNextIcon />
+                        <IconButton onClick={() => this.skipSong()}>
+                            <SkipNextIcon /> {" "} {this.props.votes} / {" "} {this.props.votes_required}
                         </IconButton>
                     </div>
                 </Grid>

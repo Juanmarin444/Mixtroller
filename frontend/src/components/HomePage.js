@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Link, N
 import RoomJoinPage from './RoomJoinPage';
 import CreateRoomPage from './CreateRoomPage';
 import Room from './Room';
+import Info from './Info';
 
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 
@@ -60,6 +61,7 @@ export default class HomePage extends Component {
                     <Grid item xs={12} align='center'>
                         <ButtonGroup disableElevation variant='contained' color='primary'>
                             <Button color='primary' to='/join' component={ Link }>Join a room</Button>
+                            <Button color='default' to='/info' component={ Link }>Info</Button>
                             <Button color='secondary' to='/create-room' component={ Link }>Create a room</Button>
                         </ButtonGroup>
                     </Grid>
@@ -67,8 +69,7 @@ export default class HomePage extends Component {
             );
         }
 
-        const Test = () => {
-            console.log(this.state.roomCode)
+        const RenderHomePageWrapper = () => {
             return (
                 this.state.roomCode ? (
                     <Navigate replace to={`/room/${this.state.roomCode}`} />
@@ -81,8 +82,9 @@ export default class HomePage extends Component {
         return (
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<Test />} />
+                    <Route exact path="/" element={<RenderHomePageWrapper />} />
                     <Route path="/join" element={<RoomJoinWrapper />} />
+                    <Route path="/info" element={<Info />} />
                     <Route path="/create-room" element={<CreateRoomWrapper />} />
                     <Route path="/room/:roomCode" element={<RoomWrapper />} />
                 </Routes>

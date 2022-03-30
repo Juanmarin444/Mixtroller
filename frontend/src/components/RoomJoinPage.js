@@ -20,7 +20,6 @@ export default class RoomJoinPage extends Component {
     }
 
     roomButtonPressed() {
-        // console.log(this.state.roomCode)
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -31,7 +30,6 @@ export default class RoomJoinPage extends Component {
         fetch('/api/join-room', requestOptions).then((response) => {
             if (response.ok) {
                 this.props.history(`/room/${this.state.roomCode}`)
-                console.log("all is good")
             } else {
                 this.setState({
                     error: "Room not found."
