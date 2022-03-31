@@ -25,3 +25,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.centerText {
+    display: flex;
+    justify-content: center;
+}

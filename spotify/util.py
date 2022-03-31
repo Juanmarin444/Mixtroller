@@ -3,12 +3,14 @@ from .models import SpotifyToken
 from django.utils import timezone
 from datetime import timedelta
 from requests import post, put, get
+import base64
 
 import environ
 
 env = environ.Env()
 
 BASE_URL = "https://api.spotify.com/v1/me/"
+PLAYLIST_URL = "https://api.spotify.com/v1/playlists"
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
@@ -31,6 +33,7 @@ def update_or_create_user_tokens(session_id, access_token, token_type, expires_i
         tokens = SpotifyToken(user=session_id, access_token=access_token, refresh_token=refresh_token, token_type=token_type, expires_in=expires_in)
         tokens.save()
 
+
 def is_spotify_authenticated(session_id):
     tokens = get_user_tokens(session_id)
 
@@ -47,11 +50,17 @@ def is_spotify_authenticated(session_id):
 def refresh_spotify_token(session_id):
     refresh_token = get_user_tokens(session_id).refresh_token
 
-    response = post('https://account.spotify.com/api/token', data={
+    authorization = env('CLIENT_ID') + ':' + env('CLIENT_SECRET')
+    string_bytes = authorization.encode("ascii")
+    base64_bytes = base64.b64encode(string_bytes)
+    base64_string = base64_bytes.decode("ascii")
+
+    headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + base64_string }
+
+    response = post('https://accounts.spotify.com/api/token', headers=headers, data={
         'grant_type': 'refresh_token',
         'refresh_token': refresh_token,
-        'client_id': env('CLIENT_ID'),
-        'client_secret': env('CLIENT_SECRET')
+        'client_id': env('CLIENT_ID')
     }).json()
 
     access_token = response.get('access_token')

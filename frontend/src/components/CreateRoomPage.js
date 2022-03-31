@@ -132,12 +132,10 @@ export default class CreateRoomPage extends Component {
                 </Grid>
                 <Grid item xs={12} align="center">
                     <FormControl component='fieldset'>
-                        <FormHelperText >
-                            <div align='center'>
-                                Guest Controll of playback state
-                            </div>
+                        <FormHelperText className="centerText">
+                                Guest Control of playback state
                         </FormHelperText>
-                        <RadioGroup row defaultValue={this.props.guestCanPause.toString()} onChange={this.handleGuestCanPauseChange}>
+                        <RadioGroup row defaultValue={this.state.guestCanPause.toString() ? this.state.guestCanPause.toString() : " "} onChange={this.handleGuestCanPauseChange}>
                             <FormControlLabel value='true' control={<Radio color="primary"/>} label="Play/Pause" labelPlacement='bottom' />
                             <FormControlLabel value='false' control={<Radio color="secondary"/>} label="No Control" labelPlacement='bottom'/>
                         </RadioGroup>
@@ -146,8 +144,8 @@ export default class CreateRoomPage extends Component {
                 <Grid item xs={12} align="center">
                     <FormControl>
                         <TextField required={true} type="number" defaultValue={this.state.votesToSkip} inputProps={{min: 1, style: {textAlign: "center"}}} onChange={this.handleVotesChange}/>
-                        <FormHelperText>
-                            <div align='center'>Votes Required To Skip Song</div>
+                        <FormHelperText className="centerText">
+                            Votes Required To Skip Song
                         </FormHelperText>
                     </FormControl>
                 </Grid>

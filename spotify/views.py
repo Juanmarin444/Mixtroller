@@ -68,7 +68,19 @@ class CurrentSong(APIView):
         response = execute_spotify_api_request(host, endpoint)
 
         if "error" in response or "item" not in response:
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+            no_song = {
+                'title': 'Where song?',
+                'artist': 'By: Nobody',
+                'duration': '0',
+                'time': '0',
+                'image_url': 'https://seranking.com/blog/wp-content/uploads/2021/01/404_01-min.jpg',
+                'is_playing': 'false',
+                'votes': '0',
+                'votes_required': room.votes_to_skip,
+                'id': 'None'
+            }
+
+            return Response(no_song, status=status.HTTP_200_OK)
         
         item = response.get('item')
         duration = item.get('duration_ms')
@@ -113,7 +125,7 @@ class CurrentSong(APIView):
             votes = Vote.objects.filter(room=room).delete()
 
 class PauseSong(APIView):
-    def put(self, request, fromat=None):
+    def put(self, request, format=None):
         room_code = self.request.session.get("room_code")
         room = Room.objects.filter(code=room_code)[0]
         if self.request.session.session_key == room.host or room.guest_can_pause:
@@ -123,7 +135,7 @@ class PauseSong(APIView):
         return Response({}, status=status.HTTP_403_FORBIDDEN)
 
 class PlaySong(APIView):
-    def put(self, request, fromat=None):
+    def put(self, request, format=None):
         room_code = self.request.session.get("room_code")
         room = Room.objects.filter(code=room_code)[0]
         if self.request.session.session_key == room.host or room.guest_can_pause:

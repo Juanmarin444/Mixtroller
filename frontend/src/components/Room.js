@@ -16,7 +16,6 @@ export default class Room extends Component {
             song: {}
         };
         this.roomCode = this.props.match.params.roomCode;
-        this.getRoomDetails();
         this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
         this.updateShowSettings = this.updateShowSettings.bind(this);
         this.renderSettingsButtons = this.renderSettingsButtons.bind(this);
@@ -24,7 +23,6 @@ export default class Room extends Component {
         this.getRoomDetails = this.getRoomDetails.bind(this);
         this.authenticateSpotify = this.authenticateSpotify.bind(this);
         this.getCurrentSong = this.getCurrentSong.bind(this);
-        this.getRoomDetails();
     }
 
     componentDidMount() {
