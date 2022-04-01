@@ -10,7 +10,8 @@ import environ
 env = environ.Env()
 
 BASE_URL = "https://api.spotify.com/v1/me/"
-PLAYLIST_URL = "https://api.spotify.com/v1/playlists"
+PLAYLISTS_URL = "https://api.spotify.com/v1/playlists/"
+ALBUMS_URL = "https://api.spotify.com/v1/albums/"
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
@@ -95,3 +96,23 @@ def pause_song(session_id):
 
 def skip_song(session_id):
     return execute_spotify_api_request(session_id, "player/next", post_=True)
+
+def get_playlist(session_id, playlist_id):
+    tokens = get_user_tokens(session_id)
+    headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
+
+    response = get(PLAYLISTS_URL + playlist_id, {}, headers=headers)
+    try:
+        return response.json()
+    except:
+        return { "Error": "Issue with request" }
+
+def get_album(session_id, album_id):
+    tokens = get_user_tokens(session_id)
+    headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
+
+    response = get(ALBUMS_URL + album_id, {}, headers=headers)
+    try:
+        return response.json()
+    except:
+        return { "Error": "Issue with request" }

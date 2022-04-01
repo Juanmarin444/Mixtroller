@@ -161,6 +161,69 @@ class SkipSong(APIView):
         
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-class GetPlaylist(APIView):
+class GetPlayer(APIView):
     def get(self, request, format=None):
-        pass
+        room_code = self.request.session.get('room_code')
+        room = Room.objects.filter(code=room_code)
+        if room.exists():
+            room = room[0]
+        else:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+        host = room.host
+        endpoint = "player"
+        response = execute_spotify_api_request(host, endpoint)
+        context = response.get('context')
+        
+        if context == None:
+            
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        player_type = context.get("type")
+        uri =  context.get("uri")
+
+        if player_type == "playlist":
+            playlist_id = uri.replace('spotify:playlist:', '')
+
+            playlist_data = get_playlist(host, playlist_id)
+
+
+
+            playlist = {
+                # GRAB THE DATA WRITTEN ON THE NOTECARD - DON'T FORGETTY
+            }
+
+            return Response(playlist_data, status=status.HTTP_200_OK)
+
+        elif player_type == "album":
+            album_id = uri.replace('spotify:album:', '')
+
+            album_data = get_album(host, album_id)
+
+            artist_string = ""
+
+            for i, artist in enumerate(album_data.get('artists')):
+                if i > 0:
+                    artrist_string += ", "
+                name = artist.get("name")
+                artist_string += name
+
+            tracks = album_data.get('tracks').get('items')
+            tracks_list = []
+
+            for i, track in enumerate(tracks):
+                current_track = {}
+                current_track['name'] = track.get('name')
+                current_track['id'] = track.get('id')
+                current_track['track_number'] = track.get('track_number')
+                current_track['explicit'] = track.get("explicit")
+                tracks_list.append(current_track)
+
+            album = {
+                'album_cover': album_data.get('images')[0].get('url'),
+                'artist':  artist_string,
+                'album_name': album_data.get('name'),
+                'total_tracks': album_data.get('total_tracks'),
+                'tracks': tracks_list
+            }
+
+            return Response(album, status=status.HTTP_200_OK)
