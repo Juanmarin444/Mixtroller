@@ -93,7 +93,7 @@ class CurrentSong(APIView):
 
         for i, artist in enumerate(item.get('artists')):
             if i > 0:
-                artrist_string += ", "
+                artist_string += ", "
             name = artist.get("name")
             artist_string += name
 
@@ -186,13 +186,27 @@ class GetPlayer(APIView):
 
             playlist_data = get_playlist(host, playlist_id)
 
+            playlist_tracks_data = playlist_data.get('tracks').get('items')
+            playlist_tracks = []
 
+            for i, playlist_track in enumerate(playlist_tracks_data):
+                current_playlist_track = {}
+                current_playlist_track['name'] = playlist_track.get('track').get('name')
+                current_playlist_track['id'] = playlist_track.get('track').get('id')
+                current_playlist_track['track_number'] = playlist_track.get('track').get('track_number')
+                current_playlist_track['explicit'] = playlist_track.get('track').get("explicit")
+                playlist_tracks.append(current_playlist_track)
 
             playlist = {
-                # GRAB THE DATA WRITTEN ON THE NOTECARD - DON'T FORGETTY
+                "playlist_cover": playlist_data.get("images")[0].get("url"),
+                "name": playlist_data.get("name"),
+                "description": playlist_data.get("description"),
+                "owner": playlist_data.get("owner").get("display_name"),
+                "tracks" : playlist_tracks
             }
 
-            return Response(playlist_data, status=status.HTTP_200_OK)
+
+            return Response(playlist, status=status.HTTP_200_OK)
 
         elif player_type == "album":
             album_id = uri.replace('spotify:album:', '')
@@ -207,23 +221,23 @@ class GetPlayer(APIView):
                 name = artist.get("name")
                 artist_string += name
 
-            tracks = album_data.get('tracks').get('items')
-            tracks_list = []
+            album_tracks_data = album_data.get('tracks').get('items')
+            album_tracks = []
 
-            for i, track in enumerate(tracks):
-                current_track = {}
-                current_track['name'] = track.get('name')
-                current_track['id'] = track.get('id')
-                current_track['track_number'] = track.get('track_number')
-                current_track['explicit'] = track.get("explicit")
-                tracks_list.append(current_track)
+            for i, album_track in enumerate(album_tracks_data):
+                current_album_track = {}
+                current_album_track['name'] = album_track.get('name')
+                current_album_track['id'] = album_track.get('id')
+                current_album_track['track_number'] = album_track.get('track_number')
+                current_album_track['explicit'] = album_track.get("explicit")
+                album_tracks.append(current_album_track)
 
             album = {
                 'album_cover': album_data.get('images')[0].get('url'),
                 'artist':  artist_string,
                 'album_name': album_data.get('name'),
                 'total_tracks': album_data.get('total_tracks'),
-                'tracks': tracks_list
+                'tracks': album_tracks
             }
 
             return Response(album, status=status.HTTP_200_OK)
