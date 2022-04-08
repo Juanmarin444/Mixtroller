@@ -29,3 +29,15 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.playlist {
+    border: solid lightcoral 1px;
+    background: green;
+    height: 500px;
+    width: 250px;
+    overflow: scroll;
+}
+
+.playlistContainer {
+    height: 400px;
+}

@@ -4,6 +4,8 @@ import RoomJoinPage from './RoomJoinPage';
 import CreateRoomPage from './CreateRoomPage';
 import Room from './Room';
 import Info from './Info';
+import ScrollComponent from './ScrollComponent';
+import PlaylistComponent from './PlaylistComponent';
 
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 
@@ -87,6 +89,8 @@ export default class HomePage extends Component {
                     <Route path="/info" element={<Info />} />
                     <Route path="/create-room" element={<CreateRoomWrapper />} />
                     <Route path="/room/:roomCode" element={<RoomWrapper />} />
+                    <Route path="/scroll" element={<ScrollComponent />} />
+                    <Route path="/playlist" element={<PlaylistComponent />} />
                 </Routes>
             </Router>
         );

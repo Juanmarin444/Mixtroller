@@ -97,6 +97,7 @@ def pause_song(session_id):
 def skip_song(session_id):
     return execute_spotify_api_request(session_id, "player/next", post_=True)
 
+
 def get_playlist(session_id, playlist_id):
     tokens = get_user_tokens(session_id)
     headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
@@ -107,11 +108,24 @@ def get_playlist(session_id, playlist_id):
     except:
         return { "Error": "Issue with request" }
 
+
 def get_album(session_id, album_id):
     tokens = get_user_tokens(session_id)
     headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
 
     response = get(ALBUMS_URL + album_id, {}, headers=headers)
+    try:
+        return response.json()
+    except:
+        return { "Error": "Issue with request" }
+
+
+def get_playlist_tracks(session_id, playlist_id, limit, offset):
+    tokens = get_user_tokens(session_id)
+    headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
+
+    response = get(PLAYLISTS_URL + playlist_id + '/tracks', {"limit": limit, "offset": offset}, headers=headers )
+
     try:
         return response.json()
     except:

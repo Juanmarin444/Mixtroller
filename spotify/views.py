@@ -186,6 +186,21 @@ class GetPlayer(APIView):
 
             playlist_data = get_playlist(host, playlist_id)
 
+            total=120
+            limit=45
+
+            test_tracks_data = get_playlist_tracks(host, playlist_id, limit=limit, offset=0)
+
+            results = test_tracks_data.get('items')
+
+            print(len(results))
+
+            while len(results) < total:
+
+                response = get_playlist_tracks(host, playlist_id, limit=limit, offset=len(results))
+
+                results.extend(response["items"])
+
             playlist_tracks_data = playlist_data.get('tracks').get('items')
             playlist_tracks = []
 
@@ -217,7 +232,7 @@ class GetPlayer(APIView):
 
             for i, artist in enumerate(album_data.get('artists')):
                 if i > 0:
-                    artrist_string += ", "
+                    artist_string += ", "
                 name = artist.get("name")
                 artist_string += name
 

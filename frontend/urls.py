@@ -9,4 +9,6 @@ urlpatterns = [
     path('info', index),
     path('create-room', index),
     path('room/<str:roomCode>', index),
+    path('scroll', index),
+    path('playlist', index)
 ]
