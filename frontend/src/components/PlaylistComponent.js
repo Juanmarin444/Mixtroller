@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 
+import Song from './Song';
+
 const Playlist = () => {
-  const [songs, setsongs] = useState(null);
+  const [tracks, setTracks] = useState(null);
   const [loading, setLoading] = useState(false);
-  const getSongs = () => {
+
+  const getPlayer = () => {
     setLoading(true);
     fetch(`/spotify/get-player`)
       .then(response => response.json())
-      .then(songs => {
-        setsongs(songs);
+      .then(player => {
+        console.log(player.tracks)
+        setTracks(player.tracks);
         setLoading(false);
       });
-    console.log(songs)
   }
+
+
   return (
     <div>
       <div>{loading ? 'loading...' : 'idk what'}</div>
-      <div>{songs != null ? songs.tracks[0].name : 'Playlist'}</div>
-      <div><button onClick={getSongs} >Click</button></div>
+      <div className='playlist'>{tracks === null ? 'playlist' : tracks.map((track, index) => (
+            <Song
+              key={index}
+              name={track.track.name}
+            />
+          ))}</div>
+      <div><button onClick={getPlayer} >Click</button></div>
     </div>
   );
 }

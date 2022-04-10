@@ -217,7 +217,7 @@ class GetPlayer(APIView):
                 "name": playlist_data.get("name"),
                 "description": playlist_data.get("description"),
                 "owner": playlist_data.get("owner").get("display_name"),
-                "tracks" : playlist_tracks
+                "tracks" : results
             }
 
 
