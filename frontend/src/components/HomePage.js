@@ -7,7 +7,9 @@ import Info from './Info';
 import ScrollComponent from './ScrollComponent';
 import PlaylistComponent from './PlaylistComponent';
 
-import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import { Grid, Button, ButtonGroup, Typography } from '@mui/material/';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import StartOutlinedIcon from '@mui/icons-material/StartOutlined';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -56,15 +58,14 @@ export default class HomePage extends Component {
             return (
                 <Grid container spacing={3}>
                     <Grid item xs={12} align='center'>
-                        <Typography variant='h3' compact='h3'>
-                            Party Tunes
+                        <Typography variant='h3' sx={{ fontWeight: 'bold' }}>
+                            Mixtroller
                         </Typography>
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <ButtonGroup disableElevation variant='contained' color='primary'>
-                            <Button color='primary' to='/join' component={ Link }>Join a room</Button>
-                            <Button color='default' to='/info' component={ Link }>Info</Button>
-                            <Button color='secondary' to='/create-room' component={ Link }>Create a room</Button>
+                        <ButtonGroup size="large" variant='outlined' aria-label="outlined primary button group">
+                            <Button color='secondary' to='/create-room' component={ Link } startIcon={<AddCircleOutlineOutlinedIcon />} sx={{ fontWeight: 'bold' }} >Create a room</Button>
+                            <Button color='primary' to='/join' component={ Link } endIcon={<StartOutlinedIcon />} sx={{ fontWeight: 'bold' }} >Join a room</Button>
                         </ButtonGroup>
                     </Grid>
                 </Grid>

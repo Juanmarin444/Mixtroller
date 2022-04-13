@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography } from '@mui/material';
 import CreateRoomPage from './CreateRoomPage';
 import MusicPlayer from './MusicPlayer';
 import PlaylistComponent from './PlaylistComponent';
@@ -115,7 +114,7 @@ export default class Room extends Component {
                     <CreateRoomPage update={ true } votesToSkip={ this.state.votesToSkip } guestCanPause={this.state.guestCanPause} roomCode={this.roomCode} updateCallback={this.getRoomDetails} />
                 </Grid>
                 <Grid item xs={12} align='center'>
-                    <Button variant="contained" color="secondary" onClick={() => this.updateShowSettings(false)}>Close</Button>
+                    <Button variant="outlined" color="secondary" onClick={() => this.updateShowSettings(false)}>Close</Button>
                 </Grid>
             </Grid>
         );
@@ -125,7 +124,7 @@ export default class Room extends Component {
     renderSettingsButtons() {
         return (
             <Grid item xs={12} align='center'>
-                <Button variant="contained" color="primary" onClick={() => this.updateShowSettings(true)}>Settings</Button>
+                <Button variant="outlined" color="primary" onClick={() => this.updateShowSettings(true)}>Settings</Button>
             </Grid>
         );
     }
@@ -141,12 +140,12 @@ export default class Room extends Component {
                 <Grid item xs={12} align='center'>
                     <Typography variant='h4' component='h4'>Code: {this.roomCode}</Typography>
                 </Grid>
+                <PlaylistComponent />
                 <MusicPlayer {...this.state.song} />
                 {this.state.isHost ? this.renderSettingsButtons() : null}
                 <Grid item xs={12} align='center'> 
-                    <Button variant="contained" color="secondary" onClick={this.leaveButtonPressed}>Leave Room</Button>
+                    <Button variant="outlined" color="secondary" onClick={this.leaveButtonPressed}>Leave Room</Button>
                 </Grid>
-                <PlaylistComponent />
             </Grid>
         );
     }

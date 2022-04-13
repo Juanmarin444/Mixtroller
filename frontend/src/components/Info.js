@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, Typography, IconButton } from '@material-ui/core';
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { Grid, Button, Typography, IconButton } from '@mui/material';
+import { NavigateBefore, NavigateNext } from '@mui/icons-material';
+// import NavigateBefore from "@material-ui/icons/NavigateBefore";
+// import NavigateNext from "@material-ui/icons/NavigateNext";
 import { Link } from "react-router-dom";
 
 const pages = {
@@ -39,7 +40,7 @@ export default function Info(props) {
             </Grid>
             <Grid item xs={12} align="center">
                 <IconButton onClick={() => {page === pages.CREATE ? setPage(pages.JOIN) : setPage(pages.CREATE)}} >
-                { page === pages.CREATE ? <NavigateBeforeIcon/> : <NavigateNextIcon/> }
+                { page === pages.CREATE ? <NavigateBefore/> : <NavigateNext/> }
                 </IconButton>
             </Grid>
             <Grid item xs={12} align="center">

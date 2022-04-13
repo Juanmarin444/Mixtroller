@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import HomePage from './HomePage';
 
@@ -9,9 +10,16 @@ export default class App extends Component {
     }
 
     render() {
+        const darkTheme = createTheme({
+            palette: {
+              mode: 'dark',
+            },
+        });
         return (
             <div className='center'>
-                <HomePage />
+                <ThemeProvider theme={darkTheme}>
+                    <HomePage />
+                </ThemeProvider>
             </div>
         );
     }

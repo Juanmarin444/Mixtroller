@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
+import { Grid, Button, Typography, TextField, FormHelperText, FormControl, Radio, RadioGroup, FormControlLabel, Collapse, Alert } from '@mui/material/';
 import { Link } from 'react-router-dom';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Collapse } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 
 export default class CreateRoomPage extends Component {
     static defaultProps = {
@@ -67,10 +57,10 @@ export default class CreateRoomPage extends Component {
         return(
             <>
                 <Grid item xs={12} align="center">
-                    <Button color="primary" variant='contained' onClick={this.handleRoomButtonPressed}>Create A Room</Button>
+                    <Button color="primary" variant='outlined' onClick={this.handleRoomButtonPressed}>Create A Room</Button>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <Button color="secondary" variant='contained' to="/" component={Link}>Back</Button>
+                    <Button color="secondary" variant='outlined' to="/" component={Link}>Back</Button>
                 </Grid>
             </>
         );
@@ -106,7 +96,7 @@ export default class CreateRoomPage extends Component {
     renderUpdateButtons() {
         return (
             <Grid item xs={12} align="center">
-                <Button color="primary" variant='contained' onClick={this.handleUpdateButtonPressed}>Update Room</Button>
+                <Button color="primary" variant='outlined' onClick={this.handleUpdateButtonPressed}>Update Room</Button>
             </Grid>
         );
     }

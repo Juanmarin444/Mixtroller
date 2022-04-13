@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Typography, Card, IconButton, LinearProgress } from "@material-ui/core"
-// import { PlayArrowIcon, SkipNextIcon, PauseIcon } from "@material-ui/icons"
-import PlayArrowIcon from "@material-ui/icons/PlayArrow"
-import SkipNextIcon from "@material-ui/icons/SkipNext"
-import PauseIcon from "@material-ui/icons/Pause"
+import { Grid, Typography, Card, IconButton, LinearProgress } from "@mui/material";
+import { PlayArrow, SkipNext, Pause } from "@mui/icons-material";
+// import PlayArrowIcon from "@material-ui/icons/PlayArrow"
+// import SkipNextIcon from "@material-ui/icons/SkipNext"
+// import PauseIcon from "@material-ui/icons/Pause"
 
 export default class MusicPlayer extends Component {
     constructor(props) {
@@ -53,10 +53,10 @@ export default class MusicPlayer extends Component {
                     </Typography>
                     <div>
                         <IconButton onClick={() => this.props.is_playing ? this.pauseSong() : this.playSong()}>
-                            {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+                            {this.props.is_playing ? <Pause /> : <PlayArrow />}
                         </IconButton>
                         <IconButton onClick={() => this.skipSong()}>
-                            <SkipNextIcon /> {" "} {this.props.votes} / {" "} {this.props.votes_required}
+                            <SkipNext /> {" "} {this.props.votes} / {" "} {this.props.votes_required}
                         </IconButton>
                     </div>
                 </Grid>
