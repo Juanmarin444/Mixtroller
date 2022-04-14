@@ -11,7 +11,7 @@ const Playlist = () => {
     fetch(`/spotify/get-player`)
       .then(response => response.json())
       .then(player => {
-        console.log(player.tracks)
+        console.log(player)
         setTracks(player.tracks);
         setLoading(false);
       });
@@ -24,7 +24,7 @@ const Playlist = () => {
       <div className='playlist'>{tracks === null ? 'playlist' : tracks.map((track, index) => (
             <Song
               key={index}
-              name={track.track.name}
+              name={track.name}
             />
           ))}</div>
       <div><button onClick={getPlayer} >Click</button></div>

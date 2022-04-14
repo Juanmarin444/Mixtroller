@@ -130,3 +130,14 @@ def get_playlist_tracks(session_id, playlist_id, limit, offset):
         return response.json()
     except:
         return { "Error": "Issue with request" }
+
+def get_album_tracks(session_id, album_id, limit, offset):
+    tokens = get_user_tokens(session_id)
+    headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
+
+    response = get(ALBUMS_URL + album_id + '/tracks', {"limit": limit, "offset": offset}, headers=headers )
+
+    try:
+        return response.json()
+    except:
+        return { "Error": "Issue with request" }
