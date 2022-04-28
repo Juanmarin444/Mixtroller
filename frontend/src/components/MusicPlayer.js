@@ -39,8 +39,9 @@ export default class MusicPlayer extends Component {
     render() {
         const songProgress = (this.props.time / this.props.duration) * 100;
 
-        return (<Card>
-            <Grid container alignItems='center'>
+        return (
+        <Card style={{width: "90%", maxWidth: "900px"}}>
+            <Grid container alignItems='center' direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 4, md: 6 }} >
                 <Grid item align='center' xs={4}>
                     <img src={ this.props.image_url } height="100%" width="100%" />
                 </Grid>

@@ -193,14 +193,12 @@ class GetPlayer(APIView):
 
         if currently_playing_type != 'track':
             only_songs = {
-                'tracks': [{'name': "no podcasts"}, {'name': "only songs"}]
+                'tracks': [{'name': "no podcasts", 'id': "1"}, {'name': "only songs", 'id': "2"}]
             }
             return Response(only_songs, status=status.HTTP_200_OK)
 
-        # return Response(response, status=status.HTTP_200_OK)
-
         context = response.get('context')
-        
+
         if context == None:      
             uri = response.get('item').get('album').get('uri')
             player_type = 'album'
@@ -212,7 +210,6 @@ class GetPlayer(APIView):
             playlist_id = uri.replace('spotify:playlist:', '')
 
             playlist_data = get_playlist(host, playlist_id)
-
             total = playlist_data.get('tracks').get('total')
             limit = 45
 
@@ -225,7 +222,7 @@ class GetPlayer(APIView):
                 response = get_playlist_tracks(host, playlist_id, limit=limit, offset=len(results))
 
                 results.extend(response["items"])
-
+            
             playlist_tracks = []
 
             for i, playlist_track in enumerate(results):
@@ -234,6 +231,14 @@ class GetPlayer(APIView):
                 current_playlist_track['id'] = playlist_track.get('track').get('id')
                 current_playlist_track['track_number'] = playlist_track.get('track').get('track_number')
                 current_playlist_track['explicit'] = playlist_track.get('track').get("explicit")
+                
+                current_artist = ''
+                for i, artist in enumerate(playlist_track.get('track').get('artists')):
+                    if i > 0:
+                        current_artist += ", "
+                    name = artist.get("name")
+                    current_artist += name
+                current_playlist_track['artist'] = current_artist
                 playlist_tracks.append(current_playlist_track)
 
             playlist = {
@@ -259,6 +264,9 @@ class GetPlayer(APIView):
 
             results = tracks_data.get('items')
 
+            print(tracks_data)
+            # return Response(tracks_data, status=status.HTTP_200_OK)
+
             while len(results) < total:
 
                 response = get_album_tracks(host, album_id, limit=limit, offset=len(results))
@@ -281,6 +289,7 @@ class GetPlayer(APIView):
                 current_album_track['id'] = album_track.get('id')
                 current_album_track['track_number'] = album_track.get('track_number')
                 current_album_track['explicit'] = album_track.get("explicit")
+                current_album_track['artist'] = artist_string
                 album_tracks.append(current_album_track)
 
             album = {

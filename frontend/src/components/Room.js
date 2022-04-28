@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Button, Typography, Stack } from '@mui/material';
 import CreateRoomPage from './CreateRoomPage';
 import MusicPlayer from './MusicPlayer';
 import PlaylistComponent from './PlaylistComponent';
@@ -26,7 +26,7 @@ export default class Room extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(this.getCurrentSong, 1000)
+        this.interval = setInterval(this.getCurrentSong, 3000)
         this.getRoomDetails()
     }
 
@@ -136,17 +136,19 @@ export default class Room extends Component {
         }
 
         return (
-            <Grid>
+            <Stack spacing={6}>
                 <Grid item xs={12} align='center'>
                     <Typography variant='h4' component='h4'>Code: {this.roomCode}</Typography>
                 </Grid>
-                <PlaylistComponent />
-                <MusicPlayer {...this.state.song} />
-                {this.state.isHost ? this.renderSettingsButtons() : null}
+                <Grid item xs={12} align='center'>
+                    <MusicPlayer {...this.state.song} />
+                    <PlaylistComponent {...this.state.song} />
+                </Grid>
                 <Grid item xs={12} align='center'> 
+                    {this.state.isHost ? this.renderSettingsButtons() : null}
                     <Button variant="outlined" color="secondary" onClick={this.leaveButtonPressed}>Leave Room</Button>
                 </Grid>
-            </Grid>
+            </Stack>
         );
     }
 }

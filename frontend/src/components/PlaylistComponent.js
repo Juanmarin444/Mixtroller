@@ -1,34 +1,52 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Song from './Song';
 
-const Playlist = () => {
-  const [tracks, setTracks] = useState(null);
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
+import Box from '@mui/material/Box';
+
+
+const Playlist = (props) => {
+  const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  console.log(props.id);
+
+  useEffect(() => {
+      getPlayer();
+      console.log("Playlist was reloded")
+  }, [props.id]);
 
   const getPlayer = () => {
     setLoading(true);
     fetch(`/spotify/get-player`)
       .then(response => response.json())
       .then(player => {
-        console.log(player)
         setTracks(player.tracks);
         setLoading(false);
       });
   }
 
+  const playSong = (id) => {
+
+    console.log("THIS WILL PLAY THE CHOSEN SONG NEXT!", id)
+  }
 
   return (
-    <div>
-      <div>{loading ? 'loading...' : 'idk what'}</div>
-      <div className='playlist'>{tracks === null ? 'playlist' : tracks.map((track, index) => (
-            <Song
-              key={index}
-              name={track.name}
-            />
-          ))}</div>
-      <div><button onClick={getPlayer} >Click</button></div>
-    </div>
+    <Box sx={{ width: '90%', maxWidth: "900px", height: 400}} >
+      <List style={{maxHeight: '100%', overflow: 'auto'}}>
+
+        {tracks.map(track => (
+          <ListItem key={track.id} button onClick={() => playSong(track.id)} >
+            <ListItemIcon>
+              <PlayCircleOutlinedIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText primary={track.name} secondary={track.artist}/>
+          </ListItem>
+        ))}
+      </List>
+      {/* <button onClick={getPlayer}>Reload Songs</button> */}
+    </Box>
   );
 }
 
