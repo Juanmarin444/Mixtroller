@@ -1,1 +1,1 @@
-web: gunicorn task_manager.wsgi
+web: gunicorn music_controller.wsgi
