@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -24,10 +24,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xzu^l+zrt=9loac3)dh3((vv1%ui^ff7x)5_0sw6g*bxa#od%5'
+# SECRET_KEY = 'django-insecure-xzu^l+zrt=9loac3)dh3((vv1%ui^ff7x)5_0sw6g*bxa#od%5'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-xzu^l+zrt=9loac3)dh3((vv1%ui^ff7x)5_0sw6g*bxa#od%5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = []
 
@@ -129,3 +136,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
+        },
+    },
+}
