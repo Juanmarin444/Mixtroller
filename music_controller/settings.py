@@ -36,7 +36,10 @@ CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://warm-journey-17825.herokuapp.com/',
+    '127.0.0.1',
+]
 
 
 # Application definition
