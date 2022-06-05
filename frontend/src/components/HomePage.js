@@ -35,8 +35,8 @@ export default class HomePage extends Component {
             roomCode: null,
         })
     }
-
     render() {
+        console.log('CHICKEN')
 
         const RoomWrapper = (props) => {
             const params = useParams();
