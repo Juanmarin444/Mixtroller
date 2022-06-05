@@ -36,7 +36,6 @@ export default class HomePage extends Component {
         })
     }
     render() {
-        console.log('CHICKEN')
 
         const RoomWrapper = (props) => {
             const params = useParams();
