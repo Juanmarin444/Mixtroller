@@ -36,7 +36,6 @@ export default class HomePage extends Component {
         })
     }
     render() {
-        console.log("WHAT IS HAPPING");
         const RoomWrapper = (props) => {
             const params = useParams();
             const history = useNavigate();
