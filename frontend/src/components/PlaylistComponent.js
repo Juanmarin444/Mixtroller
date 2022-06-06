@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Song from './Song';
 
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
@@ -10,11 +9,8 @@ const Playlist = (props) => {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log(props.id);
-
   useEffect(() => {
       getPlayer();
-      console.log("Playlist was reloded")
   }, [props.id]);
 
   const getPlayer = () => {
@@ -28,7 +24,6 @@ const Playlist = (props) => {
   }
 
   const playSong = (id) => {
-
     console.log("THIS WILL PLAY THE CHOSEN SONG NEXT!", id)
   }
 
@@ -45,7 +40,6 @@ const Playlist = (props) => {
           </ListItem>
         ))}
       </List>
-      {/* <button onClick={getPlayer}>Reload Songs</button> */}
     </Box>
   );
 }

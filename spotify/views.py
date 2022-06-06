@@ -264,9 +264,6 @@ class GetPlayer(APIView):
 
             results = tracks_data.get('items')
 
-            print(tracks_data)
-            # return Response(tracks_data, status=status.HTTP_200_OK)
-
             while len(results) < total:
 
                 response = get_album_tracks(host, album_id, limit=limit, offset=len(results))

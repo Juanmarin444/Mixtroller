@@ -85,7 +85,6 @@ export default class HomePage extends Component {
                 <Routes>
                     <Route exact path="/" element={<RenderHomePageWrapper />} />
                     <Route path="/join" element={<RoomJoinWrapper />} />
-                    <Route path="/info" element={<Info />} />
                     <Route path="/create-room" element={<CreateRoomWrapper />} />
                     <Route path="/room/:roomCode" element={<RoomWrapper />} />
                     <Route path="/scroll" element={<ScrollComponent />} />

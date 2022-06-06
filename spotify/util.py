@@ -136,7 +136,7 @@ def get_album_tracks(session_id, album_id, limit, offset):
     headers = { "Content-Type": "applications/json", "Authorization": "Bearer " + tokens.access_token }
 
     response = get(ALBUMS_URL + album_id + '/tracks', {"limit": limit, "offset": offset}, headers=headers )
-    print(response)
+    
     try:
         return response.json()
     except:

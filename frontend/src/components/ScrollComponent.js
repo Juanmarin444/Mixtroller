@@ -51,13 +51,11 @@ class ScrollComponent extends Component {
   }
 
   render() {
-    // Additional css
     const loadingCSS = {
       height: "100px",
       margin: "30px"
     };
 
-    // To change the loading icon behavior
     const loadingTextCSS = { display: this.state.loading ? "block" : "none" };
 
     return (

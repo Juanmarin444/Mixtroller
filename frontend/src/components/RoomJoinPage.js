@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Button, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-// import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export default class RoomJoinPage extends Component {
     constructor(props) {
@@ -42,29 +41,23 @@ export default class RoomJoinPage extends Component {
     }
 
     render() {
-        // const darkTheme = createTheme({
-        //     palette: {
-        //       mode: 'dark',
-        //     },
-        //   });
+  
         return (
             <Grid container spacing={1} >
-                {/* <ThemeProvider theme={darkTheme}> */}
-                    <Grid item xs={12} align='center'>
-                        <Typography variant='h4' component='h4' sx={{ fontWeight: 'bold' }} >
-                            Join a Room
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} align='center'>
-                        <TextField error={this.state.error.length > 0} label="Code" placeholder="Enter a Room Code" value={this.state.roomCode} helperText={this.state.error} variant='outlined' onChange={this.handleTextFieldChange} color="primary" />
-                    </Grid>
-                    <Grid item xs={12} align='center'>
-                        <Button variant="outlined" color='primary' onClick={this.roomButtonPressed} sx={{ fontWeight: 'bold' }}>Join Room</Button>
-                    </Grid>
-                    <Grid item xs={12} align='center'>
-                        <Button variant="outlined" color='secondary' to="/" component={Link} sx={{ fontWeight: 'bold' }}>Back</Button>
-                    </Grid>
-                {/* </ThemeProvider> */}
+                <Grid item xs={12} align='center'>
+                    <Typography variant='h4' component='h4' sx={{ fontWeight: 'bold' }} >
+                        Join a Room
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} align='center'>
+                    <TextField error={this.state.error.length > 0} label="Code" placeholder="Enter a Room Code" value={this.state.roomCode} helperText={this.state.error} variant='outlined' onChange={this.handleTextFieldChange} color="primary" />
+                </Grid>
+                <Grid item xs={12} align='center'>
+                    <Button variant="outlined" color='primary' onClick={this.roomButtonPressed} sx={{ fontWeight: 'bold' }}>Join Room</Button>
+                </Grid>
+                <Grid item xs={12} align='center'>
+                    <Button variant="outlined" color='secondary' to="/" component={Link} sx={{ fontWeight: 'bold' }}>Back</Button>
+                </Grid>
             </Grid>
         );
     }
