@@ -37,7 +37,7 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = [
-    'warm-journey-17825.herokuapp.com',
+    'mixtroller.herokuapp.com',
     '127.0.0.1',
 ]
 
