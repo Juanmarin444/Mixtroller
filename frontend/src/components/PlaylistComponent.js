@@ -24,7 +24,7 @@ const Playlist = (props) => {
   }
 
   const playSong = (id) => {
-    console.log("THIS WILL PLAY!", id)
+    console.log(`Playing song ${id} next.`);
   }
 
   return (
