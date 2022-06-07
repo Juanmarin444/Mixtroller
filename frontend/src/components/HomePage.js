@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Link, N
 import RoomJoinPage from './RoomJoinPage';
 import CreateRoomPage from './CreateRoomPage';
 import Room from './Room';
-import Info from './Info';
 import ScrollComponent from './ScrollComponent';
 import PlaylistComponent from './PlaylistComponent';
 
